@@ -65,7 +65,11 @@ $('generate').addEventListener('click',async()=>{
   const btn=$('generate');btn.disabled=true;btn.innerHTML='<span class="spin"></span>AI đang tạo đề...';status('Đang xây dựng ma trận, đặc tả và câu hỏi...');
   try{
     const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    const j=await r.json(); if(!r.ok) throw new Error(j.error||'Không thể tạo đề');
+    const raw=await r.text();
+    let j;
+    try{ j=JSON.parse(raw); }
+    catch(_){ throw new Error(`Máy chủ trả lỗi ${r.status}: ${(raw||'Không có nội dung').slice(0,180)}`); }
+    if(!r.ok) throw new Error(j.error||`Không thể tạo đề (HTTP ${r.status})`);
     lastText=j.text; $('output').innerHTML=marked.parse(lastText,{gfm:true,breaks:true}); status('Đã tạo xong. Hãy rà soát nội dung trước khi sử dụng.');
   }catch(e){status(e.message,'err'); $('output').innerHTML='<div class="empty"><div class="ico">⚠️</div><b>Không tạo được nội dung</b><p>'+e.message+'</p></div>'}
   finally{btn.disabled=false;btn.innerHTML='✨ Tạo bộ đề bằng AI'}
