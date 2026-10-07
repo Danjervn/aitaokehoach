@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EduAI 7991 - Tạo đề kiểm tra bằng AI</title>
+  <meta name="description" content="Tạo đề kiểm tra, ma trận, bản đặc tả và đáp án tham chiếu Công văn 7991/BGDĐT-GDTrH." />
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--line:#e4e7ec;--primary:#465fff;--primary2:#3347d8;--ok:#107c41;--danger:#b42318}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(135deg,#f8f9ff,#eef3ff);color:var(--text)}
+    .wrap{max-width:1180px;margin:0 auto;padding:28px 18px 48px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:46px;height:46px;border-radius:14px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:24px;box-shadow:0 10px 25px #465fff33}.title h1{font-size:22px;margin:0}.title p{margin:4px 0 0;color:var(--muted);font-size:13px}.badge{padding:8px 12px;border:1px solid #d9e0ff;background:#fff;color:#3d4dcd;border-radius:999px;font-size:12px;font-weight:700}
+    .grid{display:grid;grid-template-columns:390px 1fr;gap:20px}.card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 35px #1b25591a}.panel{padding:20px}.panel h2{font-size:17px;margin:0 0 4px}.sub{font-size:13px;color:var(--muted);margin-bottom:16px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{margin-bottom:13px}.field label{display:block;font-weight:700;font-size:12px;margin:0 0 6px}.field input,.field select,.field textarea{width:100%;border:1px solid #d0d5dd;border-radius:10px;padding:10px 11px;font:inherit;color:var(--text);background:#fff;outline:none;transition:.2s}.field textarea{min-height:108px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #465fff17}.hint{font-size:11px;color:var(--muted);margin-top:5px}.btn{width:100%;border:0;border-radius:11px;padding:12px 14px;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary2)}.btn:disabled{opacity:.6;cursor:not-allowed}.quick{display:flex;gap:8px;margin-top:9px}.quick button{flex:1;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px;font-size:12px;cursor:pointer}
+    .result{min-height:620px;display:flex;flex-direction:column}.result-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:17px 20px;border-bottom:1px solid var(--line)}.result-head strong{font-size:15px}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{border:1px solid var(--line);background:#fff;padding:8px 10px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer}.out{padding:24px;overflow:auto;line-height:1.58;font-size:14px}.empty{margin:auto;text-align:center;color:var(--muted);max-width:420px;padding:50px}.empty .ico{font-size:46px;margin-bottom:12px}.status{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;font-size:12px}.status.show{display:block}.status.ok{background:#ecfdf3;color:var(--ok)}.status.err{background:#fef3f2;color:var(--danger)}
+    .out h1{font-size:23px;margin:0 0 14px}.out h2{font-size:18px;margin:24px 0 10px;border-bottom:1px solid var(--line);padding-bottom:7px}.out h3{font-size:15px;margin:18px 0 8px}.out table{border-collapse:collapse;width:100%;font-size:12px;margin:12px 0}.out th,.out td{border:1px solid #d0d5dd;padding:7px;vertical-align:top}.out th{background:#f8f9fc}.out code{background:#f2f4f7;padding:2px 5px;border-radius:5px}.out ul,.out ol{padding-left:22px}.spin{display:inline-block;width:14px;height:14px;border:2px solid #ffffff66;border-top-color:#fff;border-radius:50%;animation:s 1s linear infinite;vertical-align:-2px;margin-right:8px}@keyframes s{to{transform:rotate(360deg)}}
+    footer{text-align:center;color:var(--muted);font-size:11px;margin-top:18px}
+    @media(max-width:850px){.grid{grid-template-columns:1fr}.result{min-height:500px}.top{align-items:flex-start}.badge{display:none}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><div class="logo">✦</div><div class="title"><h1>EduAI 7991</h1><p>Trợ lý tạo đề kiểm tra bằng AI • Ma trận • Đặc tả • Đáp án</p></div></div>
+    <div class="badge">MVP • Công văn 7991</div>
+  </div>
+
+  <div class="grid">
+    <section class="card panel">
+      <h2>Thông tin đề kiểm tra</h2>
+      <div class="sub">Nhập tối thiểu môn, lớp và phạm vi kiến thức.</div>
+      <div class="row">
+        <div class="field"><label>Cấp học</label><select id="level"><option>THPT</option><option>THCS</option></select></div>
+        <div class="field"><label>Lớp</label><select id="grade"><option>10</option><option>11</option><option>12</option><option>6</option><option>7</option><option>8</option><option>9</option></select></div>
+      </div>
+      <div class="field"><label>Môn học</label><input id="subject" placeholder="Ví dụ: Tin học" value="Tin học" /></div>
+      <div class="row">
+        <div class="field"><label>Loại kiểm tra</label><select id="examType"><option>Giữa học kỳ</option><option>Cuối học kỳ</option><option>Kiểm tra định kỳ</option></select></div>
+        <div class="field"><label>Thời lượng</label><select id="duration"><option>45 phút</option><option>60 phút</option><option>90 phút</option></select></div>
+      </div>
+      <div class="field"><label>Phạm vi kiến thức / yêu cầu cần đạt</label><textarea id="topics" placeholder="Ví dụ: Biến và kiểu dữ liệu; câu lệnh rẽ nhánh; vòng lặp; danh sách...">Biến và kiểu dữ liệu; câu lệnh rẽ nhánh; vòng lặp; bài toán thực tế đơn giản.</textarea><div class="hint">Có thể dán nguyên nội dung phân phối chương trình hoặc yêu cầu cần đạt.</div></div>
+      <div class="field"><label>Yêu cầu thêm <span style="font-weight:400;color:#98a2b3">(không bắt buộc)</span></label><textarea id="extra" style="min-height:76px" placeholder="Ví dụ: ưu tiên câu hỏi gắn thực tế, không quá khó..."></textarea></div>
+      <button id="generate" class="btn btn-primary">✨ Tạo bộ đề bằng AI</button>
+      <div class="quick"><button onclick="fillSample('toan')">Mẫu Toán</button><button onclick="fillSample('van')">Mẫu Ngữ văn</button><button onclick="fillSample('tin')">Mẫu Tin học</button></div>
+      <div id="status" class="status"></div>
+    </section>
+
+    <section class="card result">
+      <div class="result-head"><strong>Kết quả</strong><div class="actions"><button onclick="copyResult()">Sao chép</button><button onclick="downloadWord()">Tải Word</button><button onclick="window.print()">In / PDF</button></div></div>
+      <div id="output" class="out"><div class="empty"><div class="ico">📘</div><b>Chưa có đề kiểm tra</b><p>Điền thông tin bên trái và nhấn “Tạo bộ đề bằng AI”. Hệ thống sẽ sinh ma trận, bản đặc tả, đề, đáp án và hướng dẫn chấm.</p></div></div>
+    </section>
+  </div>
+  <footer>Công cụ hỗ trợ giáo viên. Nội dung do AI tạo cần được giáo viên rà soát trước khi sử dụng chính thức.</footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const $=id=>document.getElementById(id); let lastText='';
+function status(msg,type='ok'){const s=$('status');s.textContent=msg;s.className='status show '+type}
+function fillSample(x){
+  if(x==='toan'){ $('subject').value='Toán'; $('grade').value='10'; $('topics').value='Mệnh đề và tập hợp; bất phương trình bậc nhất hai ẩn; hệ thức lượng trong tam giác.'; }
+  if(x==='van'){ $('subject').value='Ngữ văn'; $('grade').value='10'; $('topics').value='Đọc hiểu văn bản; tiếng Việt; viết bài nghị luận xã hội.'; }
+  if(x==='tin'){ $('subject').value='Tin học'; $('grade').value='10'; $('topics').value='Biến và kiểu dữ liệu; câu lệnh rẽ nhánh; vòng lặp; bài toán thực tế đơn giản.'; }
+}
+$('generate').addEventListener('click',async()=>{
+  const data={level:$('level').value,grade:$('grade').value,subject:$('subject').value.trim(),examType:$('examType').value,duration:$('duration').value,topics:$('topics').value.trim(),extra:$('extra').value.trim()};
+  if(!data.subject||!data.topics){status('Vui lòng nhập môn học và phạm vi kiến thức.','err');return}
+  const btn=$('generate');btn.disabled=true;btn.innerHTML='<span class="spin"></span>AI đang tạo đề...';status('Đang xây dựng ma trận, đặc tả và câu hỏi...');
+  try{
+    const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    const j=await r.json(); if(!r.ok) throw new Error(j.error||'Không thể tạo đề');
+    lastText=j.text; $('output').innerHTML=marked.parse(lastText,{gfm:true,breaks:true}); status('Đã tạo xong. Hãy rà soát nội dung trước khi sử dụng.');
+  }catch(e){status(e.message,'err'); $('output').innerHTML='<div class="empty"><div class="ico">⚠️</div><b>Không tạo được nội dung</b><p>'+e.message+'</p></div>'}
+  finally{btn.disabled=false;btn.innerHTML='✨ Tạo bộ đề bằng AI'}
+});
+async function copyResult(){if(!lastText)return status('Chưa có nội dung để sao chép.','err');await navigator.clipboard.writeText(lastText);status('Đã sao chép nội dung.')}
+function downloadWord(){
+  if(!lastText)return status('Chưa có nội dung để tải.','err');
+  const body=marked.parse(lastText); const html=`<html><head><meta charset="utf-8"><style>body{font-family:Times New Roman;font-size:13pt;line-height:1.4}table{border-collapse:collapse;width:100%}td,th{border:1px solid #000;padding:5px}h1{text-align:center;font-size:18pt}h2{font-size:15pt}</style></head><body>${body}</body></html>`;
+  const blob=new Blob(['\ufeff',html],{type:'application/msword'}); const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`De_${$('subject').value}_lop_${$('grade').value}_7991.doc`;a.click();URL.revokeObjectURL(a.href);status('Đã tạo file Word (.doc).')
+}
+</script>
+</body>
+</html>

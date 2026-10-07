@@ -1,0 +1,7 @@
+{
+  "name": "eduai-7991",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MVP tạo đề kiểm tra bằng AI tham chiếu Công văn 7991",
+  "engines": { "node": ">=18" }
+}
