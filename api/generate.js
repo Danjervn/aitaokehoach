@@ -12,7 +12,7 @@ module.exports = async function handler(req, res) {
 
   async function callGemini(prompt, maxOutputTokens = 6000) {
     const preferredModel = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
-    const models = [...new Set([preferredModel, 'gemini-2.5-flash'])];
+    const models = [...new Set([preferredModel, 'gemini-3.5-flash'])];
     let lastError = null;
 
     for (const model of models) {
