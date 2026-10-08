@@ -28,6 +28,32 @@ YÊU CẦU THAM CHIẾU CÔNG VĂN 7991/BGDĐT-GDTrH:
 6. Không tự bịa kiến thức ngoài phạm vi người dùng cung cấp. Nếu đầu vào thiếu, dùng kiến thức phổ thông an toàn và ghi chú giáo viên cần đối chiếu SGK/chương trình đang dạy.
 7. Không khẳng định Công văn 7991 bắt buộc áp dụng giống nhau cho mọi cấp/địa phương; gọi đây là bộ đề "tham chiếu khung 7991".
 
+QUY TẮC ĐỊNH DẠNG TOÁN HỌC:
+- TUYỆT ĐỐI KHÔNG sử dụng LaTeX hoặc MathJax.
+- Không dùng ký tự $ để bao công thức.
+- Không xuất các lệnh như \\frac, \\sqrt, \\forall, \\exists, \\in, \\mathbb, \\le, \\ge, \\overline.
+- Dùng ký hiệu Unicode có thể hiển thị trực tiếp trong HTML.
+- Ví dụ:
+  + ∀ thay cho \\forall
+  + ∃ thay cho \\exists
+  + ∈ thay cho \\in
+  + ℝ thay cho \\mathbb{R}
+  + ℕ thay cho \\mathbb{N}
+  + ≤ thay cho \\le
+  + ≥ thay cho \\ge
+  + x² thay cho x^2
+  + x³ thay cho x^3
+  + √x thay cho \\sqrt{x}
+  + ¬P thay cho \\overline{P}
+- Mọi công thức phải đọc được trực tiếp như văn bản thuần trong trình duyệt.
+
+QUY TẮC CHỐNG MƠ HỒ:
+- Mỗi câu trắc nghiệm phải có DUY NHẤT một đáp án đúng.
+- Tránh câu hỏi có đáp án phụ thuộc vào quy ước khác nhau giữa sách/tài liệu.
+- Nếu dùng ℕ, phải nói rõ ℕ = {0, 1, 2, ...} hoặc dùng ℕ* = {1, 2, 3, ...} khi cần.
+- Với ký hiệu, thuật ngữ hoặc quy ước có thể có nhiều cách hiểu, phải nêu rõ quy ước ngay trong câu hỏi.
+- Tự kiểm tra lại đáp án trước khi trả về; nếu có hơn một đáp án hợp lý thì phải sửa câu hỏi.
+
 ĐẦU RA BẮT BUỘC, dùng Markdown rõ ràng:
 # BỘ ĐỀ KIỂM TRA ...
 Thông tin môn/lớp/thời gian.
@@ -54,12 +80,16 @@ Liệt kê tổng điểm từng phần, tổng điểm theo mức độ và xá
 
 Ưu tiên chất lượng thực dụng, tránh giải thích dài dòng về lý thuyết. Chỉ trả về bộ hồ sơ hoàn chỉnh.`;
 
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent', {
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
       body: JSON.stringify({
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.25, maxOutputTokens: 12000 }
+        generationConfig: {
+          temperature: 0.2,
+          maxOutputTokens: 8000,
+          thinkingConfig: { thinkingLevel: 'low' }
+        }
       })
     });
 
