@@ -54,7 +54,7 @@ Liệt kê tổng điểm từng phần, tổng điểm theo mức độ và xá
 
 Ưu tiên chất lượng thực dụng, tránh giải thích dài dòng về lý thuyết. Chỉ trả về bộ hồ sơ hoàn chỉnh.`;
 
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent', {
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
       body: JSON.stringify({
